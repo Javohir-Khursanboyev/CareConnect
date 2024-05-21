@@ -1,6 +1,6 @@
 ﻿namespace CareConnect.Domain.Entities.Documents;
 
-public class DocumentCreateModel
+public class DocumentsCreateModel
 {
     public string Name { get; set; }
     public string Path { get; set; }
