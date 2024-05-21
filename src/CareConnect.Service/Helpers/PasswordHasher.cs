@@ -1,4 +1,6 @@
-﻿namespace CareConnect.Service.Helpers;
+﻿using Microsoft.VisualBasic.FileIO;
+
+namespace CareConnect.Service.Helpers;
 
 public static class PasswordHasher
 {
