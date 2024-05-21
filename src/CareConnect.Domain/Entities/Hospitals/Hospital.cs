@@ -11,7 +11,7 @@ public class Hospital : Auditable
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Description { get; set; }
-    public long AssetId { get; set; }
+    public long? AssetId { get; set; }
 
     public Asset Asset { get; set; }
 
