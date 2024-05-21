@@ -11,6 +11,7 @@ using CareConnect.Domain.Entities.Departments;
 using CareConnect.Domain.Entities.Appointments;
 using CareConnect.Domain.Entities.DoctorComments;
 using CareConnect.Domain.Entities.Recommendations;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CareConnect.Data.UnitOfWorks;
 
@@ -31,6 +32,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<DoctorComment> DoctorComments { get; }
     public IRepository<Recommendation> Recommendations { get; }
     public IRepository<RolePermission> RolePermissions { get; }
+    private IDbContextTransaction transaction;
 
     public UnitOfWork(AppDbContext context)
     {
@@ -59,5 +61,15 @@ public class UnitOfWork : IUnitOfWork
     public async ValueTask<bool> SaveAsync()
     {
         return await _context.SaveChangesAsync() > 0;
+    }
+
+    public async ValueTask BeginTransactionAsync()
+    {
+        transaction = await _context.Database.BeginTransactionAsync();
+    }
+
+    public async ValueTask CommitTransactionAsync()
+    {
+        await transaction.CommitAsync();
     }
 }

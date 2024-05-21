@@ -31,4 +31,6 @@ public interface IUnitOfWork : IDisposable
     IRepository<RolePermission> RolePermissions { get; }
 
     ValueTask<bool> SaveAsync();
+    ValueTask BeginTransactionAsync();
+    ValueTask CommitTransactionAsync();
 }
