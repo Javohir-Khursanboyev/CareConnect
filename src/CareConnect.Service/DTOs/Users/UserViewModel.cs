@@ -1,4 +1,6 @@
-﻿namespace CareConnect.Service.DTOs.Users;
+﻿using CareConnect.Service.DTOs.Roles;
+
+namespace CareConnect.Service.DTOs.Users;
 
 public class UserViewModel
 {
@@ -10,5 +12,5 @@ public class UserViewModel
     public string Password { get; set; }
     public DateTime DateOfBirth { get; set; }
     public char Gender { get; set; }
-    public long RoleId { get; set; }
+    public RoleViewModel Role { get; set; }
 }
