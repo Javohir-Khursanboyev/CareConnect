@@ -75,7 +75,7 @@ public class DoctorService(
     {
         var existDoctor = await unitOfWork.Doctors
             .SelectAsync(doctor => doctor.Id == id && !doctor.IsDeleted, includes: ["User.Role", "Picture"])
-            ?? throw new NotFoundException($"Instructor is not found with this ID={id}");
+            ?? throw new NotFoundException($"Doctor is not found with this ID={id}");
 
         return mapper.Map<DoctorViewModel>(existDoctor);
     }
