@@ -9,5 +9,5 @@ public class DoctorCommentViewModel
     public DoctorViewModel Doctor { get; set; }
     public PatientViewModel Patient { get; set; }
     public string Comment { get; set; }
-    public long ParentId { get; set; }
+    public DoctorCommentViewModel ParentComment { get; set; }
 }
