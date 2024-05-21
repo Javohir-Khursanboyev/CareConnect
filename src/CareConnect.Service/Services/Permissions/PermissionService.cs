@@ -61,7 +61,7 @@ public class PermissionService(
 
     public async Task<PermissionViewModel> GetByIdAsync(long id)
     {
-        var existPermission = await unitOfWork.Permissions.SelectAsync(expression: p => p.Id == id, isTracked: false)
+        var existPermission = await unitOfWork.Permissions.SelectAsync(expression: p => p.Id == id)
            ?? throw new NotFoundException("Permission is not found");
 
         return mapper.Map<PermissionViewModel>(existPermission);
