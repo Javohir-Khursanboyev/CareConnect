@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CareConnect.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace CareConnect.Service.Helpers;
 
