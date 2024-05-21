@@ -1,6 +1,8 @@
-﻿namespace CareConnect.Service.DTOs.Patients;
+﻿using CareConnect.Service.DTOs.Users;
+
+namespace CareConnect.Service.DTOs.Patients;
 
 public class PatientCreateModel
 {
-    public long UserId { get; set; }
+    public UserCreateModel User { get; set; }
 }
