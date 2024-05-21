@@ -14,30 +14,30 @@ public class Repository<T> : IRepository<T> where T : Auditable
         this._context = context;
         this.set = _context.Set<T>();
     }
-    public async ValueTask<T> InsertAsync(T entity)
+    public async Task<T> InsertAsync(T entity)
     {
         return (await set.AddAsync(entity)).Entity;
     }
 
-    public async ValueTask<T> UpdateAsync(T entity)
+    public async Task<T> UpdateAsync(T entity)
     {
         set.Update(entity);
         return await Task.FromResult(entity);
     }
 
-    public async ValueTask<T> DeleteAsync(T entity)
+    public async Task<T> DeleteAsync(T entity)
     {
         entity.IsDeleted = true;
         set.Update(entity);
         return await Task.FromResult(entity);
     }
 
-    public async ValueTask<T> DropAsync(T entity)
+    public async Task<T> DropAsync(T entity)
     {
         return await Task.FromResult(set.Remove(entity).Entity);
     }
 
-    public async ValueTask<T> SelectAsync(
+    public async Task<T> SelectAsync(
         Expression<Func<T, bool>> expression,
         string[] includes = null)
     {
@@ -50,7 +50,7 @@ public class Repository<T> : IRepository<T> where T : Auditable
         return await query.FirstOrDefaultAsync();
     }
 
-    public async ValueTask<IEnumerable<T>> SelectAsEnumerable(
+    public async Task<IEnumerable<T>> SelectAsEnumerable(
         Expression<Func<T, bool>> expression = null,
         string[] includes = null,
         bool isTracked = true)

@@ -30,7 +30,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<Recommendation> Recommendations { get; }
     IRepository<RolePermission> RolePermissions { get; }
 
-    ValueTask<bool> SaveAsync();
-    ValueTask BeginTransactionAsync();
-    ValueTask CommitTransactionAsync();
+    Task<bool> SaveAsync();
+    Task BeginTransactionAsync();
+    Task CommitTransactionAsync();
 }
