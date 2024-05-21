@@ -10,13 +10,13 @@ namespace CareConnect.Domain.Entities.Doctors;
 
 public class Doctor : Auditable
 {
+    public string About { get; set; }
     public string Specialty { get; set; }
     public long DepartmentId { get; set; }
     public long? PictureId { get; set; }
-    public long ResumeId { get; set; }
-
+    public long UserId { get; set; }
     public User User { get; set; }
-    public Asset Asset { get; set; }
+    public Asset Picture { get; set; }
     public Department Department { get; set; }
 
     public IEnumerable<DoctorStar> DoctorStars { get; set; }
