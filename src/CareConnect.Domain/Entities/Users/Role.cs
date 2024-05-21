@@ -7,4 +7,5 @@ public class Role : Auditable
     public string Name { get; set; }
 
     public IEnumerable<User> Users { get; set; }
+    public IEnumerable<RolePermission> RolePermissions { get; set; }
 }
