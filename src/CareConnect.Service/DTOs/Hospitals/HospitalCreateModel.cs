@@ -7,5 +7,4 @@ public class HospitalCreateModel
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Description { get; set; }
-    public long AssetId { get; set; }
 }

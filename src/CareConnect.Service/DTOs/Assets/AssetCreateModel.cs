@@ -1,7 +1,10 @@
-﻿namespace CareConnect.Service.DTOs.Assets;
+﻿using CareConnect.Domain.Enums;
+using Microsoft.AspNetCore.Http;
+
+namespace CareConnect.Service.DTOs.Assets;
 
 public class AssetCreateModel
 {
-    public string Name { get; set; }
-    public string Path { get; set; }
+    public IFormFile File { get; set; }
+    public FileType FileType { get; set; }
 }

@@ -6,6 +6,6 @@ namespace CareConnect.Service.DTOs.RolePermissions;
 public class RolePermissionViewModel
 {
     public long Id { get; set; }
-    public RoleViewModel RoleId { get; set; }
-    public PermissionViewModel PermissionId { get; set; }
+    public RoleViewModel Role { get; set; }
+    public PermissionViewModel Permission { get; set; }
 }

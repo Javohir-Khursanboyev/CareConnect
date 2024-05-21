@@ -12,5 +12,4 @@ public class UserViewModel
     public string Password { get; set; }
     public DateTime DateOfBirth { get; set; }
     public char Gender { get; set; }
-    public RoleViewModel Role { get; set; }
 }

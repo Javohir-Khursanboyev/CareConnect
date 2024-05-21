@@ -3,5 +3,4 @@
 public class PatientCreateModel
 {
     public long UserId { get; set; }
-    public long? PictureId { get; set; }
 }
