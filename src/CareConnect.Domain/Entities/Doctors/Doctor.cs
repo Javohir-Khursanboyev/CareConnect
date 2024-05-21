@@ -9,7 +9,7 @@ public class Doctor : Auditable
 {
     public string Specialty { get; set; }
     public long DepartmentId { get; set; }
-    public long PictureId { get; set; }
+    public long? PictureId { get; set; }
     public long ResumeId { get; set; }
 
     public User User { get; set; }
