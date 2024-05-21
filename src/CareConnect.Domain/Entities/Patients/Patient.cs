@@ -1,6 +1,7 @@
 ﻿using CareConnect.Domain.Commons;
 using CareConnect.Domain.Entities.Users;
 using CareConnect.Domain.Entities.Assets;
+using CareConnect.Domain.Entities.Documents;
 using CareConnect.Domain.Entities.DoctorStars;
 using CareConnect.Domain.Entities.Appointments;
 using CareConnect.Domain.Entities.DoctorComments;
@@ -18,4 +19,5 @@ public class Patient : Auditable
     public IEnumerable<DoctorStar> DoctorStars { get; set; }
     public IEnumerable<Appointment> Appointments { get; set; }
     public IEnumerable<DoctorComment> DoctorComments { get; set; }
+    public IEnumerable<Document> Documents { get; set; }
 }

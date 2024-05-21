@@ -2,6 +2,7 @@
 using CareConnect.Domain.Commons;
 using CareConnect.Domain.Entities.Doctors;
 using CareConnect.Domain.Entities.Patients;
+using CareConnect.Domain.Entities.Documents;
 using CareConnect.Domain.Entities.Recommendations;
 
 namespace CareConnect.Domain.Entities.Appointments;
@@ -17,5 +18,6 @@ public class Appointment : Auditable
     public Doctor Doctor { get; set; }
     public Patient Patient { get; set; }
 
+    public IEnumerable<Document> Documents { get; set; }
     public IEnumerable<Recommendation> Recommendations { get; set; }
 }
