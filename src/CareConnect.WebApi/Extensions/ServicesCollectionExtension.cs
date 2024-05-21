@@ -18,14 +18,14 @@ public static class ServicesCollectionExtension
 
     }
 
-    //public static void AddExceptionHandlers(this IServiceCollection services)
-    //{
-    //    services.AddExceptionHandler<NotFoundExceptionHandler>();
-    //    services.AddExceptionHandler<AlreadyExistExceptionHandler>();
-    //    services.AddExceptionHandler<ArgumentIsNotValidExceptionHandler>();
-    //    services.AddExceptionHandler<CustomExceptionHandler>();
-    //    services.AddExceptionHandler<InternalServerExceptionHandler>();
-    //}
+    public static void AddExceptionHandlers(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<NotFoundExceptionHandler>();
+        services.AddExceptionHandler<AlreadyExistExceptionHandler>();
+        services.AddExceptionHandler<ArgumentIsNotValidExceptionHandler>();
+        services.AddExceptionHandler<CustomExceptionHandler>();
+        services.AddExceptionHandler<InternalServerExceptionHandler>();
+    }
 
     public static void AddInjectHelper(this WebApplication serviceProvider)
     {
