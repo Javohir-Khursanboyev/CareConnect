@@ -1,6 +1,7 @@
 ﻿using CareConnect.Domain.Commons;
 using CareConnect.Domain.Entities.Users;
 using CareConnect.Domain.Entities.Assets;
+using CareConnect.Domain.Entities.DoctorStars;
 
 namespace CareConnect.Domain.Entities.Patients;
 
@@ -11,4 +12,6 @@ public class Patient : Auditable
 
     public User User { get; set; }
     public Asset Asset { get; set; }
+
+    public IEnumerable<DoctorStar> DoctorStars { get; set; }
 }
