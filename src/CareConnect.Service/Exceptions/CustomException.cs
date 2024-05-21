@@ -4,7 +4,7 @@ public class CustomException : Exception
 {
     public CustomException() { }
 
-    public CustomException(string message, int statusCode) : base(message)
+    public CustomException(int statusCode, string message) : base(message)
     {
         StatusCode = statusCode;
     }
