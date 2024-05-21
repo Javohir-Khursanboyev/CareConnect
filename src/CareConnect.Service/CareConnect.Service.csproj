@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CareConnect.Data\CareConnect.Data.csproj" />
     <ProjectReference Include="..\CareConnect.Domain\CareConnect.Domain.csproj" />
   </ItemGroup>
 
