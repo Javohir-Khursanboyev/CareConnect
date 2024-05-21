@@ -1,4 +1,4 @@
-﻿namespace CareConnect.Service;
+﻿namespace CareConnect.Service.Configurations;
 
 public class Filter
 {
