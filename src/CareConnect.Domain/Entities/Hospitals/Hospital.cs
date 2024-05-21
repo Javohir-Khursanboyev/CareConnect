@@ -1,7 +1,6 @@
 ﻿using CareConnect.Domain.Commons;
 using CareConnect.Domain.Entities.Assets;
 using CareConnect.Domain.Entities.Departments;
-using CareConnect.Domain.Entities.Users;
 
 namespace CareConnect.Domain.Entities.Hospitals;
 
