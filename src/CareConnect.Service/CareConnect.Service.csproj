@@ -11,6 +11,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
     <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CareConnect.Domain\CareConnect.Domain.csproj" />
   </ItemGroup>
 
 </Project>
