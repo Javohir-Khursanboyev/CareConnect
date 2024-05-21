@@ -2,6 +2,7 @@
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
+using System.Net.Http;
 
 
 namespace CareConnect.Service.Helpers;
