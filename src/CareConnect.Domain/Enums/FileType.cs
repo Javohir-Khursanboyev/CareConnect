@@ -2,6 +2,6 @@
 
 public enum FileType
 {
-    Picture,
-    Audio
+    Pictures,
+    Audios
 }
