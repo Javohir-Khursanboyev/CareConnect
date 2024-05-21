@@ -5,6 +5,7 @@ using CareConnect.Service.Extensions;
 using CareConnect.Domain.Entities.Users;
 using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.Permissions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CareConnect.Service.Services.Permissions;
 
