@@ -22,6 +22,13 @@ public class PatientConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<Patient>().HasData(
+           new Patient
+           {
+               Id = 1,
+               UserId = 2,
+               PictureId = 1,
+               CreatedAt = DateTime.UtcNow
+           });
     }
 }

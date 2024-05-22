@@ -37,7 +37,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        ApplyConfigurations(modelBuilder);
+       // ApplyConfigurations(modelBuilder);
     }
 
     private void ApplyConfigurations(ModelBuilder modelBuilder)

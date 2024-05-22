@@ -24,6 +24,8 @@ public class DoctorStarConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<DoctorStar>().HasData(
+              new DoctorStar { Id = 1, DoctorId = 1, PatientId = 1, Star = 5, CreatedAt = DateTime.UtcNow }
+          ) ;
     }
 }

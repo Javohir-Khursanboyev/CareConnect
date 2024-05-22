@@ -24,6 +24,8 @@ public class DoctorCommentConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<DoctorComment>().HasData(
+               new DoctorComment { Id = 1, DoctorId = 1, PatientId = 1, Comment = "Great doctor!", CreatedAt = DateTime.UtcNow }
+           );
     }
 }

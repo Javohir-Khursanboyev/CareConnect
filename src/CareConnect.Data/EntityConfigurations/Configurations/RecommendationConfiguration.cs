@@ -17,6 +17,13 @@ public class RecommendationConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<Recommendation>().HasData(
+                new Recommendation
+                {
+                    Id = 1,
+                    AppointmentId = 1,
+                    Prescription = "Recommendation1",
+                    CreatedAt = DateTime.UtcNow
+                });
     }
 }
