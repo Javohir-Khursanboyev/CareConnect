@@ -64,6 +64,7 @@ public class DepartmentService(
             ?? throw new NotFoundException("Department is not found");
 
         await unitOfWork.Departments.DeleteAsync(existDepartment);
+        existDepartment.Delete();
         await unitOfWork.SaveAsync();
 
         return true;
