@@ -1,4 +1,5 @@
 using CareConnect.Data.DbContexts;
+using CareConnect.Service.Mappers;
 using CareConnect.WebApi.Extensions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,8 @@ builder.Services.AddProblemDetails();
 
 builder.Services.ConfigureSwagger();
 builder.Services.AddJwtService(builder.Configuration);
-//builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddServices();
 builder.Services.AddValidators();
 
@@ -38,6 +40,7 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.EnsureCreated();
     dbContext.Database.Migrate();
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
