@@ -14,10 +14,9 @@ public class Patient : Auditable
     public long? PictureId { get; set; }
 
     public User User { get; set; }
-    public Asset Asset { get; set; }
+    public Asset Picture { get; set; }
 
     public IEnumerable<DoctorStar> DoctorStars { get; set; }
     public IEnumerable<Appointment> Appointments { get; set; }
-    public IEnumerable<DoctorComment> DoctorComments { get; set; }
     public IEnumerable<Document> Documents { get; set; }
 }

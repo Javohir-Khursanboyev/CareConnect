@@ -56,7 +56,7 @@ public class RoleService(
 
     public async Task<RoleViewModel> GetByIdAsync(long id)
     {
-        var existRole = await unitOfWork.Roles.SelectAsync(expression: role => role.Id == id, isTracked: false)
+        var existRole = await unitOfWork.Roles.SelectAsync(expression: role => role.Id == id)
             ?? throw new NotFoundException("Role is not found");
 
         return mapper.Map<RoleViewModel>(existRole);

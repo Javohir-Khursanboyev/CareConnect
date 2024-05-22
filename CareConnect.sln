@@ -5,25 +5,22 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DEBD9F89-C527-4C8C-A53C-AB5E62C640F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareConnect.Data", "src\CareConnect.Data\CareConnect.Data.csproj", "{BD5156E5-5546-4A28-9795-0A2B44CF396F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareConnect.Data", "src\CareConnect.Data\CareConnect.Data.csproj", "{BD5156E5-5546-4A28-9795-0A2B44CF396F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareConnect.Domain", "src\CareConnect.Domain\CareConnect.Domain.csproj", "{4DA39702-45F8-40DF-8C27-3AC12F1AFF86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareConnect.Domain", "src\CareConnect.Domain\CareConnect.Domain.csproj", "{4DA39702-45F8-40DF-8C27-3AC12F1AFF86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareConnect.Service", "src\CareConnect.Service\CareConnect.Service.csproj", "{5ED8F797-4DC6-429A-BE16-77D4FEC8F731}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareConnect.Service", "src\CareConnect.Service\CareConnect.Service.csproj", "{5ED8F797-4DC6-429A-BE16-77D4FEC8F731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareConnect.WebApi", "src\CareConnect.WebApi\CareConnect.WebApi.csproj", "{570F2454-4BDE-4361-96DA-B30061446454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareConnect.WebApi", "src\CareConnect.WebApi\CareConnect.WebApi.csproj", "{570F2454-4BDE-4361-96DA-B30061446454}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{899A95D6-9693-45B1-B267-40355D37654A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareConnect.Tests", "test\CareConnect.Tests\CareConnect.Tests.csproj", "{C668C977-2510-435A-8DE2-93FBAC5B9B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareConnect.Tests", "test\CareConnect.Tests\CareConnect.Tests.csproj", "{C668C977-2510-435A-8DE2-93FBAC5B9B6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BD5156E5-5546-4A28-9795-0A2B44CF396F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,6 +43,9 @@ Global
 		{C668C977-2510-435A-8DE2-93FBAC5B9B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C668C977-2510-435A-8DE2-93FBAC5B9B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C668C977-2510-435A-8DE2-93FBAC5B9B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BD5156E5-5546-4A28-9795-0A2B44CF396F} = {DEBD9F89-C527-4C8C-A53C-AB5E62C640F8}

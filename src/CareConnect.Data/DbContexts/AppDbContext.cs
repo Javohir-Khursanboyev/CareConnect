@@ -10,6 +10,8 @@ using CareConnect.Domain.Entities.Departments;
 using CareConnect.Domain.Entities.Appointments;
 using CareConnect.Domain.Entities.DoctorComments;
 using CareConnect.Domain.Entities.Recommendations;
+using Arcana.DataAccess.EntityConfigurations.Commons;
+using System.Reflection;
 
 namespace CareConnect.Data.DbContexts;
 
@@ -31,4 +33,24 @@ public class AppDbContext : DbContext
     public DbSet<DoctorComment> DoctorComments { get; set; }
     public DbSet<Recommendation> Recommendations { get; set; }
     public DbSet<RolePermission> RolePermissions { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        ApplyConfigurations(modelBuilder);
+    }
+
+    private void ApplyConfigurations(ModelBuilder modelBuilder)
+    {
+        var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+            .Where(type => !string.IsNullOrEmpty(type.Namespace))
+            .Where(type => type.GetInterfaces().Any(inter => inter == typeof(IEntityConfiguration)));
+
+        foreach (var type in typesToRegister)
+        {
+            var configuration = (IEntityConfiguration)Activator.CreateInstance(type);
+            configuration.Configure(modelBuilder);
+            configuration.SeedData(modelBuilder); // Call the SeedData method
+        }
+    }
 }
