@@ -1,5 +1,5 @@
-﻿using CareConnect.Service.DTOs.Appointments;
-using FluentValidation;
+﻿using FluentValidation;
+using CareConnect.Service.DTOs.Appointments;
 
 namespace CareConnect.Service.Validators.Appointments;
 
