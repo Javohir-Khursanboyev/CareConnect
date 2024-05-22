@@ -28,6 +28,16 @@ public class DoctorConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<Doctor>().HasData(
+                new Doctor
+                {
+                    Id =1,
+                    About = "Experienced Cardiologist",
+                    Specialty = "Cardiology",
+                    DepartmentId = 1,
+                    PictureId = 1,
+                    UserId = 3,
+                    CreatedAt = DateTime.UtcNow
+                });
     }
 }

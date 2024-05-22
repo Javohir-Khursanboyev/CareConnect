@@ -1,4 +1,5 @@
 ﻿using CareConnect.Domain.Entities.Appointments;
+using CareConnect.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arcana.DataAccess.EntityConfigurations.Commons;
@@ -24,6 +25,16 @@ public class AppointmentCommentConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<Appointment>().HasData(
+                 new Appointment
+                 {
+                     Id = 1,
+                     DoctorId = 1,
+                     PatientId = 1,
+                     Date = DateTime.Now,
+                     Duration = 60,
+                     Status = AppointmentStatus.Scheduled,
+                     CreatedAt = DateTime.UtcNow,
+                 });
     }
 }
