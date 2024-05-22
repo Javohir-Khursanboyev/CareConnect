@@ -36,8 +36,8 @@ public static class ServicesCollectionExtension
         services.AddScoped<IPermissionService, PermissionService>();
         services.AddScoped<IRecommendationService, RecommendationService>();
         services.AddScoped<IRolePermissionService, RolePermissionService>();
-        services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<IUserService, UserService>();        
+        services.AddScoped<IRoleService, RoleService>();
     }
 
     public static void AddValidators(this IServiceCollection services)
