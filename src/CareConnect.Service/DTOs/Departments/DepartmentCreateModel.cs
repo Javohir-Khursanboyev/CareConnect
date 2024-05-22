@@ -3,5 +3,5 @@
 public class DepartmentCreateModel
 {
     public string Name { get; set; }
-    public string HospitalId { get; set; }
+    public long HospitalId { get; set; }
 }
