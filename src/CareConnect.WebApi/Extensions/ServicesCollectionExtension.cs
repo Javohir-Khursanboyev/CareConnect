@@ -7,16 +7,28 @@ using CareConnect.Service.Services.Roles;
 using CareConnect.Service.Services.Users;
 using CareConnect.Service.Services.Assets;
 using CareConnect.Service.Services.Doctors;
+using CareConnect.Service.Validators.Users;
+using CareConnect.Service.Validators.Roles;
 using CareConnect.Service.Services.Patients;
+using CareConnect.Service.Validators.Assets;
 using CareConnect.Service.Services.Hospitals;
+using CareConnect.Service.Validators.Doctors;
+using CareConnect.Service.Validators.Hospitals;
 using CareConnect.Service.Services.DoctorStars;
 using CareConnect.Service.Services.Departments;
 using CareConnect.Service.Services.Permissions;
 using CareConnect.Service.Services.Appointments;
+using CareConnect.Service.Validators.Permissions;
+using CareConnect.Service.Validators.Departments;
+using CareConnect.Service.Validators.DoctorStars;
 using CareConnect.Service.Services.DoctorComments;
+using CareConnect.Service.Validators.Appointments;
 using CareConnect.Service.Services.Recommendations;
 using CareConnect.Service.Services.RolePermissions;
+using CareConnect.Service.Validators.DoctorComments;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using CareConnect.Service.Validators.RolePermissions;
+using CareConnect.Service.Validators.Recommendations;
 
 namespace CareConnect.WebApi.Extensions;
 
@@ -42,7 +54,38 @@ public static class ServicesCollectionExtension
 
     public static void AddValidators(this IServiceCollection services)
     {
+        services.AddTransient<UserCreateModelValidator>();
+        services.AddTransient<UserUpdateModelValidator>();
+        services.AddTransient<UserChangePasswordModelValidator>();
 
+        services.AddTransient<AssetCreateModelValidator>();
+
+        services.AddTransient<RoleCreateModelValidator>();
+        services.AddTransient<RoleUpdateModelValidator>();
+
+        services.AddTransient<PermissionCreateModelValidator>();
+        services.AddTransient<PermissionUpdateModelValidator>();
+
+        services.AddTransient<RolePermissionCreateModelValidator>();
+
+        services.AddTransient<RecommendationCreateModelValidator>();
+
+        services.AddTransient<HospitalCreateModelValidator>();
+        services.AddTransient<HospitalUpdateModelValidator>();
+
+        services.AddTransient<DoctorStarCreateModelValidator>();
+
+        services.AddTransient<DoctorCreateModelValidator>();
+        services.AddTransient<DoctorUpdateModelValidator>();
+
+        services.AddTransient<DoctorCommentCreateModelValidator>();
+        services.AddTransient<DoctorCommentUpdateModelValidator>();
+
+        services.AddTransient<DepartmentCreateModelValidator>();
+        services.AddTransient<DepartmentUpdateModelValidator>();
+
+        services.AddTransient<AppointmentCreateModelValidator>();
+        services.AddTransient<AppointmentUpdateModelValidator>();
     }
 
     public static void AddExceptionHandlers(this IServiceCollection services)
