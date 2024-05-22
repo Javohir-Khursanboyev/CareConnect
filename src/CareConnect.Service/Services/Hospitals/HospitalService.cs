@@ -18,8 +18,6 @@ public class HospitalService(
 {
     public async Task<HospitalViewModel> CreateAsync(HospitalCreateModel model)
     {
-        await unitOfWork.BeginTransactionAsync();
-
         var existHospital = await unitOfWork.Hospitals.
             SelectAsync(h => h.Name.ToLower() == model.Name.ToLower() && h.Address.ToLower() == model.Address.ToLower());
 
@@ -31,15 +29,12 @@ public class HospitalService(
 
         var createdHospital = await unitOfWork.Hospitals.InsertAsync(hospital);
         await unitOfWork.SaveAsync();
-        await unitOfWork.CommitTransactionAsync();
 
         return mapper.Map<HospitalViewModel>(createdHospital);
     }
 
     public async Task<HospitalViewModel> UpdateAsync(long id, HospitalUpdateModel model)
     {
-        await unitOfWork.BeginTransactionAsync();
-
         var existHospital = await unitOfWork.Hospitals.SelectAsync(h => h.Id == id)
             ?? throw new NotFoundException("Hospital is not found");
 
@@ -53,21 +48,17 @@ public class HospitalService(
         existHospital.Update();
         var updateHospital = await unitOfWork.Hospitals.UpdateAsync(existHospital);
         await unitOfWork.SaveAsync();
-        await unitOfWork.CommitTransactionAsync();
 
         return mapper.Map<HospitalViewModel>(updateHospital);
     }
 
     public async Task<bool> DeleteAsync(long id)
     {
-        await unitOfWork.BeginTransactionAsync();
-
         var existHospital = await unitOfWork.Hospitals.SelectAsync(h => h.Id == id)
             ?? throw new NotFoundException("Hospital is not found");
 
         await unitOfWork.Hospitals.DeleteAsync(existHospital);
         await unitOfWork.SaveAsync();
-        await unitOfWork.CommitTransactionAsync();
 
         return true;
     }
