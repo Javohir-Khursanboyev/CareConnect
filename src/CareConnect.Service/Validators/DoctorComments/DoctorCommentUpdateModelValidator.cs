@@ -3,7 +3,7 @@ using CareConnect.Service.DTOs.DoctorComments;
 
 namespace CareConnect.Service.Validators.DoctorComments;
 
-public class DoctorCommentUpdateModelValidator : AbstractValidator<DoctorCommentCreateModel>
+public class DoctorCommentUpdateModelValidator : AbstractValidator<DoctorCommentUpdateModel>
 {
     DoctorCommentUpdateModelValidator()
     {

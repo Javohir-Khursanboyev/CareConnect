@@ -3,7 +3,7 @@ using CareConnect.Service.DTOs.Departments;
 
 namespace CareConnect.Service.Validators.Departments;
 
-public class DepartmentUpdateModelValidator : AbstractValidator<DepartmentCreateModel>
+public class DepartmentUpdateModelValidator : AbstractValidator<DepartmentUpdateModel>
 {
     public DepartmentUpdateModelValidator()
     {
