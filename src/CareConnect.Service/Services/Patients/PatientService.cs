@@ -39,7 +39,7 @@ public class PatientService(
     {
         await unitOfWork.BeginTransactionAsync();
 
-        var existPatient = await unitOfWork.Patients.SelectAsync(patient => patient.Id == id)
+        var existPatient = await unitOfWork.Patients.SelectAsync(patient => patient.Id == id && !patient.IsDeleted)
             ?? throw new NotFoundException($"Patient is not found with this ID={id}");
 
         await userService.UpdateAsync(existPatient.UserId, model.User);
@@ -57,7 +57,7 @@ public class PatientService(
     {
         await unitOfWork.BeginTransactionAsync();
 
-        var existPatient = await unitOfWork.Patients.SelectAsync(patient => patient.Id == id)
+        var existPatient = await unitOfWork.Patients.SelectAsync(patient => patient.Id == id && !patient.IsDeleted)
             ?? throw new NotFoundException($"Patient is not found with this ID={id}");
 
         await userService.DeleteAsync(existPatient.UserId);
