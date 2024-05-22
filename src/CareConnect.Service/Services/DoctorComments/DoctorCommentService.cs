@@ -1,20 +1,24 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.DoctorComments;
-using CareConnect.Service.Configurations;
-using CareConnect.Service.DTOs.DoctorComments;
+using Microsoft.EntityFrameworkCore;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
-using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Configurations;
+using CareConnect.Service.DTOs.DoctorComments;
+using CareConnect.Domain.Entities.DoctorComments;
+using CareConnect.Service.Validators.DoctorComments;
 
 namespace CareConnect.Service.Services.DoctorComments;
 
 public class DoctorCommentService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IDoctorCommentService
+    IUnitOfWork unitOfWork,
+    DoctorCommentCreateModelValidator createModelValidator,
+    DoctorCommentUpdateModelValidator updateModelValidator) : IDoctorCommentService
 {
     public async Task<DoctorCommentViewModel> CreateAsync(DoctorCommentCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existPatient = await unitOfWork.Patients.SelectAsync(patient => patient.Id == model.PatientId && !patient.IsDeleted)
             ?? throw new NotFoundException($"Patient is not found with this ID={model.PatientId}");
 
@@ -33,6 +37,7 @@ public class DoctorCommentService(
 
     public async Task<DoctorCommentViewModel> UpdateAsync(long id, DoctorCommentUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existDoctorComment = await unitOfWork.DoctorComments.SelectAsync(dc => dc.Id == id && !dc.IsDeleted)
             ?? throw new NotFoundException($"Doctor comment is not found with this ID={id}");
 

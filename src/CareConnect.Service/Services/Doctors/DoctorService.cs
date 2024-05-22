@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.Doctors;
-using CareConnect.Service.Configurations;
-using CareConnect.Service.DTOs.Assets;
-using CareConnect.Service.DTOs.Doctors;
+using Microsoft.EntityFrameworkCore;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
-using CareConnect.Service.Services.Assets;
+using CareConnect.Service.DTOs.Assets;
+using CareConnect.Service.DTOs.Doctors;
+using CareConnect.Service.Configurations;
 using CareConnect.Service.Services.Users;
-using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Services.Assets;
+using CareConnect.Domain.Entities.Doctors;
+using CareConnect.Service.Validators.Assets;
+using CareConnect.Service.Validators.Doctors;
 
 namespace CareConnect.Service.Services.Doctors;
 
@@ -16,10 +18,14 @@ public class DoctorService(
     IMapper mapper,
     IUnitOfWork unitOfWork,
     IUserService userService,
-    IAssetService assetService) : IDoctorService
+    IAssetService assetService, 
+    DoctorCreateModelValidator createModelValidator,
+    DoctorUpdateModelValidator  updateModelValidator,
+    AssetCreateModelValidator assetCreateModelValidator) : IDoctorService
 {
     public async Task<DoctorViewModel> CreateAsync(DoctorCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         await unitOfWork.BeginTransactionAsync();
 
         model.User.RoleId = await GetRoleId();
@@ -37,6 +43,7 @@ public class DoctorService(
 
     public async Task<DoctorViewModel> UpdateAsync(long id, DoctorUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         await unitOfWork.BeginTransactionAsync();
 
         var existDoctor = await unitOfWork.Doctors.SelectAsync(doctor => doctor.Id == id)
@@ -96,6 +103,7 @@ public class DoctorService(
 
     public async Task<DoctorViewModel> UploadPictureAsync(long id, AssetCreateModel assetCreateModel)
     {
+        await assetCreateModelValidator.EnsureValidatedAsync(assetCreateModel);
         await unitOfWork.BeginTransactionAsync();
         var existDoctor = await unitOfWork.Doctors
             .SelectAsync(doctor => doctor.Id == id && !doctor.IsDeleted, includes: ["User.Role", "Picture"])

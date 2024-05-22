@@ -6,6 +6,8 @@ using CareConnect.Service.DTOs.Users;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
 using CareConnect.Service.Helpers;
+using CareConnect.Service.Validators.Assets;
+using CareConnect.Service.Validators.Users;
 using Microsoft.EntityFrameworkCore;
 using UserApp.Service.DTOs.Auths;
 
@@ -13,10 +15,14 @@ namespace CareConnect.Service.Services.Users;
 
 public class UserService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IUserService
+    IUnitOfWork unitOfWork,
+    UserCreateModelValidator createModelValidator,
+    UserUpdateModelValidator updateModelValidator,
+    UserChangePasswordModelValidator changePasswordValidator) : IUserService
 {
     public async Task<UserViewModel> CreateAsync(UserCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existUser = await unitOfWork.Users.SelectAsync(user => user.Email == model.Email);
 
         if (existUser is not null && existUser.IsDeleted)
@@ -38,6 +44,7 @@ public class UserService(
 
     public async Task<UserViewModel> UpdateAsync(long id, UserUpdateModel model, bool isUsesDeleted = false)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existUser = await unitOfWork.Users.SelectAsync(u => u.Id == id && !u.IsDeleted)
                 ?? throw new NotFoundException("User is not found");
 
@@ -105,6 +112,7 @@ public class UserService(
 
     public async Task<UserViewModel> ChangePasswordAsync(UserChangePasswordModel model)
     {
+        await changePasswordValidator.EnsureValidatedAsync(model);
         var existUser = await unitOfWork.Users.
             SelectAsync(expression: user => user.Id == model.Id && !user.IsDeleted, includes: ["Asset", "Role"])
             ?? throw new NotFoundException("User is not found");

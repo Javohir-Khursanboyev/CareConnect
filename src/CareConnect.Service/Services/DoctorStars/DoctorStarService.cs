@@ -1,22 +1,23 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.DoctorStars;
-using CareConnect.Domain.Entities.Users;
-using CareConnect.Service.Configurations;
-using CareConnect.Service.DTOs.DoctorStars;
-using CareConnect.Service.DTOs.RolePermissions;
+using Microsoft.EntityFrameworkCore;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
-using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Configurations;
+using CareConnect.Service.DTOs.DoctorStars;
+using CareConnect.Domain.Entities.DoctorStars;
+using CareConnect.Service.Validators.DoctorStars;
 
 namespace CareConnect.Service.Services.DoctorStars;
 
 public class DoctorStarService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IDoctorStarService
+    IUnitOfWork unitOfWork,
+    DoctorStarCreateModelValidator createModelValidator) : IDoctorStarService
 {
     public async Task<DoctorStarViewModel> CreateAsync(DoctorStarCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existDoctor = await unitOfWork.Doctors.SelectAsync(d => d.Id == model.DoctorId && !d.IsDeleted)
             ?? throw new NotFoundException("Doctor is not found");
         var existPatient = await unitOfWork.Patients.SelectAsync(p => p.Id == model.PatientId && !p.IsDeleted)

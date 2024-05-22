@@ -1,20 +1,24 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
 using CareConnect.Domain.Entities.Users;
 using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.Permissions;
-using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Validators.Permissions;
 
 namespace CareConnect.Service.Services.Permissions;
 
 public class PermissionService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IPermissionService
+    IUnitOfWork unitOfWork,
+    PermissionCreateModelValidator createModelValidator,
+    PermissionUpdateModelValidator updateModelValidator) : IPermissionService
 {
     public async Task<PermissionViewModel> CreateAsync(PermissionCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existPermission = await unitOfWork.Permissions.
             SelectAsync(p => p.Action.ToLower() == model.Action.ToLower() && p.Controller.ToLower() == model.Controller.ToLower());
 
@@ -31,6 +35,7 @@ public class PermissionService(
 
     public async Task<PermissionViewModel> UpdateAsync(long id, PermissionUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existPermission = await unitOfWork.Permissions.SelectAsync(p => p.Id == id)
             ?? throw new NotFoundException("Permission is not found");
 
