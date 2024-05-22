@@ -23,8 +23,8 @@ builder.Services.ConfigureSwagger();
 builder.Services.AddJwtService(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddServices();
 builder.Services.AddValidators();
+builder.Services.AddServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,16 +33,17 @@ var app = builder.Build();
 app.AddInjectHelper();
 app.InjectEnvironmentItems();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    var dbContext = services.GetRequiredService<AppDbContext>();
-//    try
-//    {
-//        dbContext.Database.EnsureCreated();
-//        dbContext.Database.Migrate();
-//    }catch (Exception ex) { }
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<AppDbContext>();
+    try
+    {
+        dbContext.Database.EnsureCreated();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex) { }
+}
 
 
 // Configure the HTTP request pipeline.

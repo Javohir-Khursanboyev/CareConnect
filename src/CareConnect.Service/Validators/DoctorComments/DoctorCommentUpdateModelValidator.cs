@@ -5,7 +5,7 @@ namespace CareConnect.Service.Validators.DoctorComments;
 
 public class DoctorCommentUpdateModelValidator : AbstractValidator<DoctorCommentUpdateModel>
 {
-    DoctorCommentUpdateModelValidator()
+     public DoctorCommentUpdateModelValidator()
     {
         RuleFor(dc => dc.DoctorId)
              .NotNull()

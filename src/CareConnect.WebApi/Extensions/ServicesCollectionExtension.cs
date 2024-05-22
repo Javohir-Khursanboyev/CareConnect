@@ -67,6 +67,7 @@ public static class ServicesCollectionExtension
         services.AddTransient<PermissionUpdateModelValidator>();
 
         services.AddTransient<RolePermissionCreateModelValidator>();
+        services.AddTransient<RolePermissionUpdateModelValidator>();
 
         services.AddTransient<RecommendationCreateModelValidator>();
 
