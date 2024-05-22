@@ -7,7 +7,7 @@ namespace CareConnect.Domain.Entities.Departments;
 public class Department : Auditable
 {
     public string Name { get; set; }
-    public string HospitalId { get; set; }
+    public long HospitalId { get; set; }
 
     public Hospital Hospital { get; set; }
 

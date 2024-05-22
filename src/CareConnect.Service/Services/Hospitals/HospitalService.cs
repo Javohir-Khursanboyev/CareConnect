@@ -65,8 +65,8 @@ public class HospitalService(
         var existHospital = await unitOfWork.Hospitals.SelectAsync(h => h.Id == id)
             ?? throw new NotFoundException("Hospital is not found");
 
-        await unitOfWork.Hospitals.DropAsync(existHospital);
         existHospital.Delete();
+        await unitOfWork.Hospitals.DeleteAsync(existHospital);
         await unitOfWork.SaveAsync();
         await unitOfWork.CommitTransactionAsync();
 
@@ -76,7 +76,7 @@ public class HospitalService(
     public async Task<HospitalViewModel> GetByIdAsync(long id)
     {
         var existHospital = await unitOfWork.Hospitals.
-            SelectAsync(expression: h => h.Id == id, includes: ["Asset"])
+            SelectAsync(expression: h => h.Id == id && !h.IsDeleted, includes: ["Asset"])
             ?? throw new NotFoundException("Hospital is not found");
 
         return mapper.Map<HospitalViewModel>(existHospital);
@@ -85,7 +85,7 @@ public class HospitalService(
     public async Task<IEnumerable<HospitalViewModel>> GetAllAsync(PaginationParams @params, Filter filter, string search = null)
     {
         var hospitals = unitOfWork.Hospitals.
-            SelectAsQueryable(includes: ["Asset"], isTracked: false).
+            SelectAsQueryable(expression: h => !h.IsDeleted, includes: ["Asset"], isTracked: false).
             OrderBy(filter);
 
         if (!string.IsNullOrEmpty(search))
