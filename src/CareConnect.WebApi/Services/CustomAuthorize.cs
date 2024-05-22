@@ -1,15 +1,16 @@
-﻿using CareConnect.Service.Exceptions;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using CareConnect.Service.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using CareConnect.Service.Services.RolePermissions;
 
 public class CustomAuthorize : Attribute, IAuthorizationFilter
 {
-   // private readonly IRolePermissionService rolePermissionService;
+    private readonly IRolePermissionService rolePermissionService;
     public CustomAuthorize()
     {
-       // rolePermissionService = InjectHelper.RolePermissionService;
+        rolePermissionService = InjectHelper.RolePermissionService;
     }
 
     public void OnAuthorization(AuthorizationFilterContext context)
@@ -31,11 +32,11 @@ public class CustomAuthorize : Attribute, IAuthorizationFilter
         var controller = actionDescriptor.ControllerName;
         var role = context.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-        //if (//!rolePermissionService.CheckRolePermission(role, action, controller))
-        //{
-        //    SetStatusCodeResult(context);
-        //    return;
-        //}
+        if (!rolePermissionService.CheckRolePermission(role, action, controller))
+        {
+            SetStatusCodeResult(context);
+            return;
+        }
     }
 
     private void SetStatusCodeResult(AuthorizationFilterContext context)

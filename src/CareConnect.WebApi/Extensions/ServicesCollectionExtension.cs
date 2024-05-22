@@ -1,8 +1,22 @@
-﻿using CareConnect.Service.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+﻿using System.Text;
 using Microsoft.OpenApi.Models;
-using System.Text;
+using CareConnect.Service.Helpers;
+using CareConnect.Data.UnitOfWorks;
+using Microsoft.IdentityModel.Tokens;
+using CareConnect.Service.Services.Roles;
+using CareConnect.Service.Services.Users;
+using CareConnect.Service.Services.Assets;
+using CareConnect.Service.Services.Doctors;
+using CareConnect.Service.Services.Patients;
+using CareConnect.Service.Services.Hospitals;
+using CareConnect.Service.Services.DoctorStars;
+using CareConnect.Service.Services.Departments;
+using CareConnect.Service.Services.Permissions;
+using CareConnect.Service.Services.Appointments;
+using CareConnect.Service.Services.DoctorComments;
+using CareConnect.Service.Services.Recommendations;
+using CareConnect.Service.Services.RolePermissions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CareConnect.WebApi.Extensions;
 
@@ -10,7 +24,20 @@ public static class ServicesCollectionExtension
 {
     public static void AddServices(this IServiceCollection services)
     {
-       
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IAppointmentService, AppointmentService>();
+        services.AddScoped<IAssetService, AssetService>();
+        services.AddScoped<IDepartmentService, DepartmentService>();
+        services.AddScoped<IDoctorCommentService, DoctorCommentService>();
+        services.AddScoped<IDoctorService, DoctorService>();
+        services.AddScoped<IDoctorStarService, DoctorStarService>();
+        services.AddScoped<IHospitalService, HospitalService>();
+        services.AddScoped<IPatientService, PatientService>();
+        services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<IRecommendationService, RecommendationService>();
+        services.AddScoped<IRolePermissionService, RolePermissionService>();
+        services.AddScoped<IUserService, UserService>();        
+        services.AddScoped<IRoleService, RoleService>();
     }
 
     public static void AddValidators(this IServiceCollection services)
@@ -29,8 +56,8 @@ public static class ServicesCollectionExtension
 
     public static void AddInjectHelper(this WebApplication serviceProvider)
     {
-        //var scope = serviceProvider.Services.CreateScope();
-        //InjectHelper.RolePermissionService = scope.ServiceProvider.GetRequiredService<IRolePermissionService>();
+        var scope = serviceProvider.Services.CreateScope();
+        InjectHelper.RolePermissionService = scope.ServiceProvider.GetRequiredService<IRolePermissionService>();
     }
 
     public static void InjectEnvironmentItems(this WebApplication app)
