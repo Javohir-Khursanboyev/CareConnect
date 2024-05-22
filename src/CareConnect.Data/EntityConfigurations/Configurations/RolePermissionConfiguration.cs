@@ -24,6 +24,5 @@ public class RolePermissionConfiguration : IEntityConfiguration
 
     public void SeedData(ModelBuilder modelBuilder)
     {
-        throw new NotImplementedException();
     }
 }
