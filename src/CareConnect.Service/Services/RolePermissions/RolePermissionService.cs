@@ -6,15 +6,19 @@ using CareConnect.Service.Extensions;
 using CareConnect.Domain.Entities.Users;
 using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.RolePermissions;
+using CareConnect.Service.Validators.RolePermissions;
 
 namespace CareConnect.Service.Services.RolePermissions;
 
 public class RolePermissionService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IRolePermissionService
+    IUnitOfWork unitOfWork,
+    RolePermissionCreateModelValidator createModelValidator,
+    RolePermissionUpdateModelValidator updateModelValidator) : IRolePermissionService
 {
     public async Task<RolePermissionViewModel> CreateAsync(RolePermissionCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existRole = await unitOfWork.Roles.SelectAsync(role => role.Id == model.RoleId)
             ?? throw new NotFoundException("Role is not found");
         var existPermission = await unitOfWork.Permissions.SelectAsync(permission => permission.Id == model.RoleId)
@@ -39,6 +43,7 @@ public class RolePermissionService(
 
     public async Task<RolePermissionViewModel> UpdateAsync(long id, RolePermissionUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existRolePermission = await unitOfWork.RolePermissions.SelectAsync(rp => rp.Id == id)
             ?? throw new NotFoundException("Role permission is not found");
 

@@ -1,19 +1,22 @@
 ﻿using AutoMapper;
-using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.Assets;
-using CareConnect.Service.DTOs.Assets;
-using CareConnect.Service.Exceptions;
-using CareConnect.Service.Extensions;
 using CareConnect.Service.Helpers;
+using CareConnect.Data.UnitOfWorks;
+using CareConnect.Service.Extensions;
+using CareConnect.Service.Exceptions;
+using CareConnect.Service.DTOs.Assets;
+using CareConnect.Domain.Entities.Assets;
+using CareConnect.Service.Validators.Assets;
 
 namespace CareConnect.Service.Services.Assets;
 
 public class AssetService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IAssetService
+    IUnitOfWork unitOfWork,
+    AssetCreateModelValidator createModelValidator) : IAssetService
 {
     public async Task<AssetViewModel> UploadAsync(AssetCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var assetData = await FileHelper.CreateFileAsync(model.File, model.FileType);
         var asset = new Asset()
         {

@@ -6,15 +6,19 @@ using CareConnect.Service.Extensions;
 using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.Departments;
 using CareConnect.Domain.Entities.Departments;
+using CareConnect.Service.Validators.Departments;
 
 namespace CareConnect.Service.Services.Departments;
 
 public class DepartmentService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IDepartmentService
+    IUnitOfWork unitOfWork,
+    DepartmentCreateModelValidator createModelValidator,
+    DepartmentUpdateModelValidator updateModelValidator) : IDepartmentService
 {
     public async Task<DepartmentViewModel> CreateAsync(DepartmentCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existHospital = await unitOfWork.Hospitals.SelectAsync(h => h.Id == model.HospitalId && !h.IsDeleted)
             ?? throw new NotFoundException("Hospital is not found");
        
@@ -36,6 +40,7 @@ public class DepartmentService(
 
     public async Task<DepartmentViewModel> UpdateAsync(long id, DepartmentUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existDepartment = await unitOfWork.Departments.SelectAsync(d => d.Id == id)
             ?? throw new NotFoundException("Department is not found");
 

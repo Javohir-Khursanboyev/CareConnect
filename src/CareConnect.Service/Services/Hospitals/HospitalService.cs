@@ -8,16 +8,22 @@ using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.Hospitals;
 using CareConnect.Service.Services.Assets;
 using CareConnect.Domain.Entities.Hospitals;
+using CareConnect.Service.Validators.Assets;
+using CareConnect.Service.Validators.Hospitals;
 
 namespace CareConnect.Service.Services.Hospitals;
 
 public class HospitalService(
     IMapper mapper,
     IUnitOfWork unitOfWork,
-    IAssetService assetService) : IHospitalService
+    IAssetService assetService,
+    HospitalCreateModelValidator createModelValidator,
+    HospitalUpdateModelValidator updateModelValidator,
+    AssetCreateModelValidator assetCreateModelValidator) : IHospitalService
 {
     public async Task<HospitalViewModel> CreateAsync(HospitalCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existHospital = await unitOfWork.Hospitals.
             SelectAsync(h => h.Name.ToLower() == model.Name.ToLower() && h.Address.ToLower() == model.Address.ToLower());
 
@@ -35,6 +41,7 @@ public class HospitalService(
 
     public async Task<HospitalViewModel> UpdateAsync(long id, HospitalUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existHospital = await unitOfWork.Hospitals.SelectAsync(h => h.Id == id)
             ?? throw new NotFoundException("Hospital is not found");
 
@@ -90,6 +97,7 @@ public class HospitalService(
 
     public async Task<HospitalViewModel> UploadPictureAsync(long id, AssetCreateModel assetCreateModel)
     {
+        await assetCreateModelValidator.EnsureValidatedAsync(assetCreateModel);
         await unitOfWork.BeginTransactionAsync();
         var existHospital = await unitOfWork.Hospitals
             .SelectAsync(h => h.Id == id && !h.IsDeleted, includes: ["Asset"])

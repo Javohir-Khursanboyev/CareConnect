@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.Patients;
-using CareConnect.Service.Configurations;
+using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Extensions;
+using CareConnect.Service.Exceptions;
 using CareConnect.Service.DTOs.Assets;
 using CareConnect.Service.DTOs.Patients;
-using CareConnect.Service.Exceptions;
-using CareConnect.Service.Extensions;
-using CareConnect.Service.Services.Assets;
+using CareConnect.Service.Configurations;
 using CareConnect.Service.Services.Users;
-using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Services.Assets;
+using CareConnect.Domain.Entities.Patients;
+using CareConnect.Service.Validators.Assets;
 
 namespace CareConnect.Service.Services.Patients;
 
@@ -16,7 +17,8 @@ public class PatientService(
     IMapper mapper,
     IUnitOfWork unitOfWork,
     IAssetService assetService,
-    IUserService userService) : IPatientService
+    IUserService userService,
+    AssetCreateModelValidator createModelValidator) : IPatientService
 {
     public async Task<PatientViewModel> CreateAsync(PatientCreateModel model)
     {
@@ -95,6 +97,7 @@ public class PatientService(
 
     public async Task<PatientViewModel> UploadPictureAsync(long id, AssetCreateModel assetCreateModel)
     {
+        await createModelValidator.EnsureValidatedAsync(assetCreateModel);
         await unitOfWork.BeginTransactionAsync();
         var existPatient = await unitOfWork.Patients
             .SelectAsync(patient => patient.Id == id && !patient.IsDeleted, includes: ["User.Role", "Picture"])

@@ -6,15 +6,19 @@ using CareConnect.Service.Extensions;
 using CareConnect.Service.Configurations;
 using CareConnect.Service.DTOs.Appointments;
 using CareConnect.Domain.Entities.Appointments;
+using CareConnect.Service.Validators.Appointments;
 
 namespace CareConnect.Service.Services.Appointments;
 
 public class AppointmentService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IAppointmentService
+    IUnitOfWork unitOfWork,
+    AppointmentCreateModelValidator createModelValidator,
+    AppointmentUpdateModelValidator updateModelValidator) : IAppointmentService
 {
     public async Task<AppointmentViewModel> CreateAsync(AppointmentCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existDoctor = await unitOfWork.Doctors.SelectAsync(d => d.Id == model.DoctorId && !d.IsDeleted)
             ?? throw new NotFoundException("Doctor is not found");
         var existPatient = await unitOfWork.Patients.SelectAsync(p => p.Id == model.PatientId)
@@ -39,6 +43,7 @@ public class AppointmentService(
 
     public async Task<AppointmentViewModel> UpdateAsync(long id, AppointmentUpdateModel model)
     {
+        await updateModelValidator.EnsureValidatedAsync(model);
         var existAppointment = await unitOfWork.Appointments.SelectAsync(a => a.Id == id)
             ?? throw new NotFoundException("Appointment is not found");
 

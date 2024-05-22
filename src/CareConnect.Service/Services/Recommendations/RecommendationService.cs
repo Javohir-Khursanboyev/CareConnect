@@ -1,19 +1,22 @@
 ﻿using AutoMapper;
 using CareConnect.Data.UnitOfWorks;
-using CareConnect.Domain.Entities.Recommendations;
-using CareConnect.Service.Configurations;
 using CareConnect.Service.Exceptions;
 using CareConnect.Service.Extensions;
 using Microsoft.EntityFrameworkCore;
+using CareConnect.Service.Configurations;
+using CareConnect.Domain.Entities.Recommendations;
+using CareConnect.Service.Validators.Recommendations;
 
 namespace CareConnect.Service.Services.Recommendations;
 
 public class RecommendationService(
     IMapper mapper,
-    IUnitOfWork unitOfWork) : IRecommendationService
+    IUnitOfWork unitOfWork,
+    RecommendationCreateModelValidator createModelValidator) : IRecommendationService
 {
     public async Task<RecommendationViewModel> CreateAsync(RecommendationsCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
         var existAppointment = await unitOfWork.Appointments.SelectAsync(appointment => appointment.Id == model.AppointmentId && !appointment.IsDeleted)
             ?? throw new NotFoundException($"This appointment is not found with this ID={model.AppointmentId}");
 
