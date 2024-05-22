@@ -78,7 +78,7 @@ public class RolePermissionService(
     public async Task<RolePermissionViewModel> GetByIdAsync(long id)
     {
         var existRolePermission = await unitOfWork.RolePermissions.
-            SelectAsync(expression: rp => rp.Id == id, includes: ["Role", "Permission"], isTracked: false)
+            SelectAsync(expression: rp => rp.Id == id, includes: ["Role", "Permission"])
             ?? throw new NotFoundException("Role permission is not found");
 
         return mapper.Map<RolePermissionViewModel>(existRolePermission);
