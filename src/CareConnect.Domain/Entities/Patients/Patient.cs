@@ -4,7 +4,6 @@ using CareConnect.Domain.Entities.Assets;
 using CareConnect.Domain.Entities.Documents;
 using CareConnect.Domain.Entities.DoctorStars;
 using CareConnect.Domain.Entities.Appointments;
-using CareConnect.Domain.Entities.DoctorComments;
 
 namespace CareConnect.Domain.Entities.Patients;
 

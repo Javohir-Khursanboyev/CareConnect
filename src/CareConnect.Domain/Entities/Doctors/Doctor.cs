@@ -15,6 +15,7 @@ public class Doctor : Auditable
     public long DepartmentId { get; set; }
     public long? PictureId { get; set; }
     public long UserId { get; set; }
+
     public User User { get; set; }
     public Asset Picture { get; set; }
     public Department Department { get; set; }
