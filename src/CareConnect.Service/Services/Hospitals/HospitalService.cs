@@ -66,6 +66,7 @@ public class HospitalService(
             ?? throw new NotFoundException("Hospital is not found");
 
         await unitOfWork.Hospitals.DropAsync(existHospital);
+        existHospital.Delete();
         await unitOfWork.SaveAsync();
         await unitOfWork.CommitTransactionAsync();
 
