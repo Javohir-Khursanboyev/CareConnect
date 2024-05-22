@@ -18,6 +18,12 @@ public class DoctorConfiguration : IEntityConfiguration
             .HasOne(doctor => doctor.Picture)
             .WithMany()
             .HasForeignKey(doctor => doctor.PictureId);
+
+        // Doctor and Department
+        modelBuilder.Entity<Doctor>()
+            .HasOne(doctor => doctor.Department)
+            .WithMany(deparment => deparment.Doctors)
+            .HasForeignKey(doctor => doctor.DepartmentId);
     }
 
     public void SeedData(ModelBuilder modelBuilder)
