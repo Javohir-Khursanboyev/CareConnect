@@ -1,6 +1,6 @@
 ﻿namespace CareConnect.Domain.Entities.Recommendations;
 
-public class RecommendationCreateModel
+public class RecommendationsCreateModel
 {
     public long AppointmentId { get; set; }
     public string Prescription { get; set; }

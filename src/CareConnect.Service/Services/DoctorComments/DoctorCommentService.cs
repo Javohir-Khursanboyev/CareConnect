@@ -74,7 +74,7 @@ public class DoctorCommentService(
     public async Task<IEnumerable<DoctorCommentViewModel>> GetAllAsync(PaginationParams @params, Filter filter, string search = null)
     {
         var doctorComments = unitOfWork.DoctorComments
-            .SelectAsQueryable(expression : dc => !dc.IsDeleted, includes: ["Doctor", "Patient"])
+            .SelectAsQueryable(expression : dc => !dc.IsDeleted, includes: ["Doctor", "Patient"], isTracked: false)
             .OrderBy(filter);
 
         if (!string.IsNullOrWhiteSpace(search))
