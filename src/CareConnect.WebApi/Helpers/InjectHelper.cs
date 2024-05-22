@@ -1,4 +1,6 @@
-﻿public class InjectHelper
+﻿using CareConnect.Service.Services.RolePermissions;
+
+public class InjectHelper
 {
-    //public static IRolePermissionService RolePermissionService { get; set; }
+    public static IRolePermissionService RolePermissionService { get; set; }
 }
