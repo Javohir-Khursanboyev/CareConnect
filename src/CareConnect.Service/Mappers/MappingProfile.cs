@@ -66,7 +66,7 @@ public class MappingProfile : Profile
         CreateMap<PermissionUpdateModel, Permission>().ReverseMap();
         CreateMap<Permission, PermissionViewModel>().ReverseMap();
 
-        CreateMap<RecommendationCreateModel, Recommendation>().ReverseMap();
+        CreateMap<RecommendationsCreateModel, Recommendation>().ReverseMap();
         CreateMap<Recommendation, RecommendationViewModel>().ReverseMap();
 
         CreateMap<RolePermissionCreateModel, RolePermission>().ReverseMap();
